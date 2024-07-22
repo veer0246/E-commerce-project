@@ -31,10 +31,12 @@ export default function clientLogin() {
       e.preventDefault()
       let result  = await axios.post('http://localhost:3000/api/clientLogin', data)
       // console.log(result.data)
+      console.log(result.data.token)   
+      localStorage.setItem('token', result.data.token)  // token data save in local storage
 
       let unique  = data.email.split('@')[0]  //email to split before @ 
        // console.log(unique)
-      if(result.data){
+      if(result.data.isMatch){
         createClientTable(unique) //function call, heigher order function--> function within function 
 
         // setLogin(result.data)
