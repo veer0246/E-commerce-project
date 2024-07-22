@@ -35,7 +35,7 @@ async function deleteCart(id){  // function to delete cart
    }
   }
 
-  let cost  = data.reduce((acc , curent)=> acc + JSON.parse(curent.productPrice),0) // calculating total cost
+  let cost  = data.reduce((acc , curent)=> acc + JSON.parse(curent.productPrice),0) // calculating total cost of products
 
   return (
     <div className=" mx-auto flex max-w-3xl flex-col space-y-4 p-6 px-2 sm:p-10 sm:px-2">

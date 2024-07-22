@@ -4,6 +4,10 @@ import '../App.css'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import UserContext from '../context/UserContext'
+import { Carousel } from "flowbite-react"
+import image1 from '../assets/lap3.jpg'
+import image2 from '../assets/watch.jpg'
+
 
 
 
@@ -65,7 +69,7 @@ export default function Home() {
          productPrice: data.productPrice,
          productType:data.productType,
          productRating:data.productRating,
-         image: data.image
+             
        })
  
       if(result.data == true){
@@ -188,7 +192,18 @@ onClick={handleSearch}
 {/* card section to strat here------------------------------------------------------------------ */}
 
 
+    {/* <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
+      <Carousel>
+        <img src={image1} alt="..." className='h-400 w-full' />
+        <img src={image2} alt="..." />
+        <img src="https://flowbite.com/docs/images/carousel/carousel-3.svg" alt="..." />
+        <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" alt="..." />
+        <img src="https://flowbite.com/docs/images/carousel/carousel-5.svg" alt="..." />
+      </Carousel>
+    </div> */}
     <div className='relative left-[290px] top-[70px] flex justify-start w-[1200px] flex-wrap gap-[18px]'>
+
+
 
     {/* <div className="relative  border-2 border-red-800 w-[1155px] h-[100px] rounded-lg border bg-pink-500 text-balck-300">
              <div className='text-center mt-[10px] text-[40px]'>  Welcome to Global Market </div>
