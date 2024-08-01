@@ -4,7 +4,8 @@ let jwt = require('jsonwebtoken')
 
 // function to create generateToken function
 function generateToken(User){
-    return jwt.sign({id: User.id}, "hello", {expiresIn: '1h'})
+    // return jwt.sign({id: User.id}, "hello", {expiresIn: '1h'})
+    return jwt.sign({id: User.id}, process.env.JWT_SECRET, {expiresIn: '1h'})
 }
 
 
@@ -40,7 +41,8 @@ exports.clientLogin = (req, res)=>{
     db.query(sql, [email], (err, result) => {
         if (err) throw err
         else{ 
-        bcrypt.compare(password, result[0].password, async (err, isMatch)=>{  // result[0].result->database saved password
+        bcrypt.compare(password, result[0].password, async(err, isMatch)=>{  // result[0].result->database saved password
+            
             if(err) throw err
             else{
                 if(isMatch == true){
@@ -108,6 +110,23 @@ exports.getClient = (req, res)=>{
     })
 }
 
-
+// it is verify the tokens----------------
+exports.verify = (req, res)=>{
+    let token  = req.headers['authorization'].split(" ")[1]
+    if(token){
+        jwt.verify(token , process.env.JWT_SECRET, (err, decode)=>{
+            if(err) throw err
+            else{
+                let sql = "select * from clientdetail where  id = ?"
+                db.query(sql, [decode.id], (err, result)=>{
+            if(err) throw err
+                    else{
+                        res.json(result[0])
+                    }
+                })
+            }
+        })
+    }
+}
 
 

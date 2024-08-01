@@ -8,6 +8,10 @@ let adminRouter=require('./routes/adminRoute.js')
 let cartRouter = require('./routes/cartRoute.js')
 let clientRouter = require("./routes/clientRoute.js")
 
+const dotenv = require('dotenv') 
+dotenv.config({  // require dotenv and set path 
+    path: './.env'
+})
 
 let app = express()
 let port = 3000
@@ -83,6 +87,7 @@ db.query(clientDetailTableQuery,(err, result)=>{
  app.use('/api', clientRouter)
 
 
-app.listen(port,()=>{
+// app.listen(port,()=>{
+app.listen(process.env.PORT,()=>{
     console.log(`server is runing at http://localhost:${port}`)    
 })

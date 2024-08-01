@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 export default function clientLogin() {
 
   let {setLogin} = useContext(UserContext)
+  let {userLogin} = useContext(UserContext)
   let navigation = useNavigate()
       
 //set data---------------------------
@@ -29,15 +30,19 @@ export default function clientLogin() {
 //create function handle Login-------------
     async function handleLogin(e){
       e.preventDefault()
-      let result  = await axios.post('http://localhost:3000/api/clientLogin', data)
+      //--------------
+      // let result  = await axios.post('http://localhost:3000/api/clientLogin', data)
       // console.log(result.data)
-      console.log(result.data.token)   
-      localStorage.setItem('token', result.data.token)  // token data save in local storage
-
+      // console.log(result.data.token)   
+      // localStorage.setItem('token', result.data.token)  // token data save in local storage
+      //--------------
+      let flag=  await userLogin(data)
+      if(flag){
       let unique  = data.email.split('@')[0]  //email to split before @ 
+      
        // console.log(unique)
-      if(result.data.isMatch){
-        createClientTable(unique) //function call, heigher order function--> function within function 
+      // if(result.data.isMatch){  // it compair the data ismatch or not
+        // createClientTable(unique) //function call, heigher order function--> function within function 
 
         // setLogin(result.data)
         setLogin(unique)
@@ -48,9 +53,9 @@ export default function clientLogin() {
     }
 
     //create client table by 'unique' value, which is taking from email---------------
-    async function createClientTable(unique){ // unique pass as parameter that's store the velue
-      await axios.post(`http://localhost:3000/api/createClient/${unique}`) //variable pass in the url  
-    }
+    // async function createClientTable(unique){ // unique pass as parameter that's store the velue
+    //   await axios.post(`http://localhost:3000/api/createClient/${unique}`) //variable pass in the url  
+    // }
 
   return (
     <section>

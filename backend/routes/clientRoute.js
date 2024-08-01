@@ -12,4 +12,6 @@ router.post('/createClient/:unique', clientController.createClient) // url path 
 
 router.get('/getClient/:unique', clientController.getClient)
 
+router.get('/verify', clientController.verify)
+
 module.exports = router

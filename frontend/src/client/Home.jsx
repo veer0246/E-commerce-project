@@ -69,7 +69,7 @@ export default function Home() {
          productPrice: data.productPrice,
          productType:data.productType,
          productRating:data.productRating,
-             
+         image: data.image      
        })
  
       if(result.data == true){
@@ -95,6 +95,9 @@ export default function Home() {
       setCount(result.data.length)
     }
 
+// let str = "dsgadfg"
+// console.log(!!str)
+
     return (
       <>
     {/* asidebar section to start here------------------------------------------------------------------------------------------------- */}
@@ -108,7 +111,7 @@ export default function Home() {
           <div className="space-y-3 ">
             <label className="px-3 text-xs font-semibold uppercase text-gray-700">analytics</label>
            
-<form class="max-w-md mx-auto">   
+<form class="max-w-md mx-auto"> 
   
     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     <div class="relative">
