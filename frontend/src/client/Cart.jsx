@@ -11,26 +11,35 @@ export default function Cart() {
     let [data, setData] = useState([])
 
     let {setCount} = useContext(UserContext)
-    let {login} = useContext(UserContext)
+    // let {login} = useContext(UserContext)
+    let {auth} = useContext(UserContext)
 
     useEffect(() => {
         fetchCartData()  // function call
-    }, [])
+    // }, [])
+    }, [auth])
+
 
     //create function to fetch cart data----------------------
     async function fetchCartData() {
       // let result = await axios.get('http://localhost:3000/api/getCart')
-      let result = await axios.get(`http://localhost:3000/api/getCart/${login}`)
+      // let result = await axios.get(`http://localhost:3000/api/getCart/${login}`)
+
+       if(auth.userId){
+        let result = await axios.get(`http://localhost:3000/api/getCart/${auth.userId}`)
       setData(result.data)
       setCount(result.data.length)
     }
+  }
 
 //create function to delete cart data-----------------------
 async function deleteCart(id){  // function to delete cart
     let flag  = confirm("Are u sure to delete item")
    if(flag){
     //  await axios.delete(`http://localhost:3000/api/deleteCart/${id}`)
-    await axios.delete(`http://localhost:3000/api/deleteCart/${id}/${login}`)
+    // await axios.delete(`http://localhost:3000/api/deleteCart/${id}/${login}`)
+    
+    await axios.delete(`http://localhost:3000/api/deleteCart/${id}/${auth.userId}`)
     fetchCartData() // function call
    }
   }

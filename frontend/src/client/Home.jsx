@@ -59,12 +59,17 @@ export default function Home() {
   }
 
   //function to save cart data------
-  let { login } = useContext(UserContext)
+  // let { login } = useContext(UserContext)
+  let { auth } = useContext(UserContext)
 
   async function saveCart(data){
-    if (login) {
+    // if (login) {
     // let result =  await axios.post('http://localhost:3000/api/cartSave', {
-    let result =  await axios.post(`http://localhost:3000/api/cartSave/${login}`, {
+    // let result =  await axios.post(`http://localhost:3000/api/cartSave/${login}`, {
+
+    if (auth.userId) {
+      let result = await axios.post(`http://localhost:3000/api/cartSave/${auth.userId}`,
+         {
          productBrand: data.productBrand,
          productPrice: data.productPrice,
          productType:data.productType,
@@ -87,14 +92,19 @@ export default function Home() {
 
     useEffect(() => {
         fetchCartData()
-    }, [])
+    // }, [])
+    }, [auth])
 
     async function fetchCartData() {
       // let result = await axios.get('http://localhost:3000/api/getCart')
-      let result = await axios.get(`http://localhost:3000/api/getCart/${login}`)
+      // let result = await axios.get(`http://localhost:3000/api/getCart/${login}`)
+
+      if(auth.userId){
+        let result = await axios.get(`http://localhost:3000/api/getCart/${auth.userId}`)
       setCount(result.data.length)
     }
-
+  }
+  
 // let str = "dsgadfg"
 // console.log(!!str)
 
@@ -111,16 +121,16 @@ export default function Home() {
           <div className="space-y-3 ">
             <label className="px-3 text-xs font-semibold uppercase text-gray-700">analytics</label>
            
-<form class="max-w-md mx-auto"> 
+<form className="max-w-md mx-auto"> 
   
-    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-    <div class="relative">
-        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+    <label for="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+    <div className="relative">
+        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
             </svg>
         </div>
-        <input type="search" id="default-search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg 
+        <input type="search" id="default-search" className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg 
         bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
         dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Product Type...." required 
         onChange={(e)=>setInp(e.target.value)}/>
@@ -214,7 +224,7 @@ onClick={handleSearch}
 
     {data.map((data)=>(
         <div className="w-[280px]   rounded-lg border bg-pink-100 hover:bg-blue-200 cursor-pointer shadow-xl  shadow-neutral-200 
-       ">
+         "  key = {data.id}>
           {/*  transition ease-in-out delay-100  hover:-translate-y-[10px] hover:bg-indigo-500 duration-300 ... */}
         <img
           // src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJsb2d8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"

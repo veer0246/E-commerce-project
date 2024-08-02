@@ -37,15 +37,17 @@ export default function clientLogin() {
       // localStorage.setItem('token', result.data.token)  // token data save in local storage
       //--------------
       let flag=  await userLogin(data)
+      console.log(flag)
       if(flag){
-      let unique  = data.email.split('@')[0]  //email to split before @ 
-      
+      // let unique  = data.email.split('@')[0]  //email to split before @ 
+
        // console.log(unique)
       // if(result.data.isMatch){  // it compair the data ismatch or not
         // createClientTable(unique) //function call, heigher order function--> function within function 
 
-        // setLogin(result.data)
-        setLogin(unique)
+        // // setLogin(result.data)
+        // setLogin(unique)
+         
         navigation('/')
        }else{
         alert("U enter the wrong Details")

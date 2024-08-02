@@ -6,16 +6,20 @@ import UserContext from '../context/UserContext'
 export default function ClientDetail() {
 
     let [data, setData] = useState([])
-    let {login} = useContext(UserContext)
+    // let {login} = useContext(UserContext)
+    let {auth} = useContext(UserContext)
 
     async function fetchClientData(){
-        let result = await axios.get(`http://localhost:3000/api/getClient/${login}`) 
+        // let result = await axios.get(`http://localhost:3000/api/getClient/${login}`) 
+        let result = await axios.get(`http://localhost:3000/api/getClient/${auth.userId}`) 
+
         setData(result.data)
         // console.log(result.json())
     }
     useEffect(()=>{
         fetchClientData()
-    },[login])
+    // },[login])
+    },[auth])
 
   return (
     <section className="px-2 py-10 md:px-0">
