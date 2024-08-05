@@ -30,7 +30,7 @@ export default function ClientNavbar() {
 
   let { count } = useContext(UserContext) //use userContext
   // let { login } = useContext(UserContext)
-  let {auth} = useContext(UserContext)
+  let {auth, userLogout} = useContext(UserContext)
 
   useEffect(() => {
     getClient()
@@ -48,6 +48,13 @@ export default function ClientNavbar() {
     setData(result.data)
   }
 }
+
+//cteate function for logout----------------
+function logout(){
+  userLogout()
+  window.location.reload()
+}
+
 
   return (
 
@@ -128,6 +135,11 @@ export default function ClientNavbar() {
               login
             </Link>
           </div>
+
+{/* logout button----------------------- */}
+{auth.userId &&   <button className='p-[7px] px-[10px] text-sm font-semibold rounded-md bg-stone-500 text-white ml-[140px]' 
+        onClick={logout}
+        >Logout</button>}
         </div>
 
         <div className="lg:hidden">
